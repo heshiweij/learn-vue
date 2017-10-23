@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <!--html 属性应该是 xx-yy-zz-->
+    <!--对应 js 变量：xxYyZx-->
+    <!--虽然这里是 false，但是由于传递的是字符串，js 接收到的是 “false”，表示 truly-->
+    <my-header title="title" news="news" show-if-false="false"></my-header>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-header">
+    <div>
+       <p>
+           {{title}}
+       </p>
+        <p>
+            {{news}}
+        </p>
+        <p>
+            <button v-if="showIfFalse">我是按钮</button>
+        </p>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 父组件给子组件传递字符串参数
+
+    var myHeader = {
+        template: "#my-header",
+        props: ['title', 'news', 'showIfFalse'] /* 注意，这里是数组 []，不是对象 {} */
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-header></my-header>
+    <my-header></my-header>
+    <my-header></my-header>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-header">
+    <!--注意，必须加上根元素-->
+    <div>
+        <ul>
+            <li v-for="(item,k) in articles">{{item.title}}
+                <button @click="del(item, k)">删除</button>
+            </li>
+        </ul>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 多个组件之间禁止共享一个 data，会导致意想不到的错误
+
+    var lists = {
+        articles: [
+            {title: "title1"},
+            {title: "title2"},
+            {title: "title3"}
+        ]
+    };
+
+    var myHeader = {
+        template: "#my-header",
+        data(){
+            return lists;
+        },
+        methods: {
+            del(item, k){
+                console.log(item);
+                this.articles.splice(k, 1);
+            }
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        }
+    });
+
+</script>
+</body>
+</html>

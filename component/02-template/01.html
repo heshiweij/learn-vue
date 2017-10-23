@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-header></my-header>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/javascript">
+
+    // 使用 template 指定字符串模板
+    var myHeader = {
+        template: "<div>I am my header component</div>"
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        }
+    });
+
+</script>
+</body>
+</html>

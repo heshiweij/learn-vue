@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-news>
+        <template scope="v">
+            {{v.field}}
+        </template>
+    </my-news>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+
+<!--如果有多个 slot，则父元素的 template 会被调用两次-->
+<script type="text/x-template" id="my-news">
+    <div>
+
+        <slot v-for="item in lists" title="我是标题" :field="item.title"></slot>
+
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 使用 slot scope template 将子组件的部分定义交给父组件
+
+    var myNews = {
+        template: "#my-news",
+        data(){
+            return {
+                lists: [
+                    {title: "title1"},
+                    {title: "title2"},
+                    {title: "title3"},
+                ]
+            }
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        }
+    });
+
+</script>
+</body>
+</html>

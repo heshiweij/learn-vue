@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-header></my-header>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-header">
+    <!--注意，必须加上根元素-->
+    <div>
+        I am my header component
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 使用 template 指定字符串模板
+    var myHeader = {
+        template: "#my-header"
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        }
+    });
+
+</script>
+</body>
+</html>

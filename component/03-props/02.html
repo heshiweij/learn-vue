@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <!--父组件动态给子组件传递数据 news-->
+    <my-header :title="'title'" :news="news"  show-if-false="false"></my-header>
+s
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-header">
+    <div>
+       <p>
+           {{title}}
+       </p>
+        <p>
+            <span>{{news.title}}</span>
+            <span>{{news.content}}</span>
+
+        </p>
+        <p>
+            <button v-if="showIfFalse">我是按钮</button>
+        </p>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 父组件给子组件传递表达式或者变量
+
+    var myHeader = {
+        template: "#my-header",
+        // 这里的 show-if-false 还是参数中的 html case 的字符串
+        // 但是在模板中使用，就要转成对应 js 形式 showIfFalse
+        props: ['title', 'show-if-false', 'news'] /* 注意，这里是数组 []，不是对象 {} */
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        },
+        data: {
+            news: {
+                title: "I am title",
+                content: "I am content"
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

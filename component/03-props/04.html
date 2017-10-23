@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            width: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <my-news :lists="myLists" @sum="getTotal"></my-news>
+    <p>
+        总价：{{total_price}}
+    </p>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-news">
+    <div>
+        <table border="1">
+            <tr v-for="item in lists">
+                <td>{{item.title}}</td>
+                <td><input type="text" v-model="item.price"  @blur="sum" /></td>
+            </tr>
+        </table>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // props $emit 实现父组件向子组件传递数据
+
+    var myNews = {
+        template: "#my-news",
+        props: {
+            lists: {
+                type: Array,
+                default(){
+                    return [];
+                }
+            }
+        },
+        methods: {
+            sum(){
+                var sum = 0;
+                // dom 绑定了 lists，当页面上的数据发生改变，lists 中的值也会发生改变
+                this.lists.forEach(function (item, index) {
+                    sum += item.price / 1;
+                });
+                // 调用子组件 sum 所指向的父组件的 getTotal 方法
+                this.$emit('sum', sum);
+            }
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        },
+        mounted(){
+            // 获得初始化的总价
+            var sum = 0;
+            this.myLists.forEach(function (item, index) {
+                sum += item.price / 1;
+            });
+
+            this.total_price = sum;
+        },
+        data: {
+            myLists: [
+                {
+                    title: '货物1',
+                    price: 12
+                },
+                {
+                    title: '货物2',
+                    price: 13
+                }
+            ],
+            total_price: 0
+        },
+        methods: {
+            getTotal(value){
+                this.total_price = value;
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

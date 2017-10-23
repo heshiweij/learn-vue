@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            width: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <my-news :lists.sync="myLists"></my-news>
+
+    <hr>
+    <ul>
+        <li v-for="item in myLists">
+            {{item.title}} -> {{item.price}}
+        </li>
+    </ul>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-news">
+    <div>
+        <button @click="change">修改</button>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // props $emit 实现父组件向子组件传递数据
+
+    var myNews = {
+        template: "#my-news",
+        props: {
+            lists: {
+                type: Array,
+                default(){
+                    return [];
+                }
+            }
+        },
+        methods: {
+            change(){
+                // 如果不加 sync 关键字，操作 lists，也能同步到父组件
+                this.lists.splice(0,1);
+            }
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        },
+        data: {
+            myLists: [
+                {
+                    title: '货物1',
+                    price: 12
+                },
+                {
+                    title: '货物2',
+                    price: 13
+                }
+            ],
+            total_price: 0
+        },
+        methods: {
+            getTotal(value){
+                this.total_price = value;
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

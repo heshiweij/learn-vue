@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-news></my-news>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/javascript">
+
+    // 局部注册组件
+
+    var myNews = {
+        template: "<div>I am my news component</div>",
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        }
+    });
+
+</script>
+</body>
+</html>

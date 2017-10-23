@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <my-news>
+        <h1 slot="title">我是标题</h1>
+        <p slot="content">
+            我是内容
+        </p>
+    </my-news>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<!--对应的 slot 会被替换-->
+<script type="text/x-template" id="my-news">
+    <div>
+        <slot name="title">
+
+        </slot>
+        <slot name="content">
+
+        </slot>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // slot 支持父组件向子组件分发内容
+
+    var myNews = {
+        template: "#my-news"
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <!--父组件动态给子组件传递数据 news-->
+    <my-header :age="1" :lists="myLists"></my-header>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-header">
+    <div>
+        <ul>
+            <li v-for="item in lists">{{item}}</li>
+        </ul>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // props 多种验证机制
+
+    var myHeader = {
+        template: "#my-header",
+        // 如果接受了没有传递的参数，就是空
+//        props: ['title', 'show-if-false', 'news'] /* 注意，这里是数组 []，不是对象 {} */
+
+        // type: 执行数据的类型
+        // default: 默认值
+        // required 必填
+        props: {
+            lists:  {
+                type: Array,
+                default(){
+                    return [];
+                },
+                required: true
+            },
+            age: {
+                type: Number,
+                validator(k){
+                    return k == 1 || k == 2;
+                },
+                required: true
+            }
+        }
+
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myHeader
+        },
+        data: {
+            news: {
+                title: "I am title",
+                content: "I am content"
+            },
+            myLists: [
+                'name1', 'name2'
+            ]
+        }
+    });
+
+</script>
+</body>
+</html>

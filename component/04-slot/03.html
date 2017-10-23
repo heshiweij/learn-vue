@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <div is="my-header"></div>
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+
+<script type="text/x-template" id="my-header">
+    <div>
+        my - header
+    </div>
+</script>
+<script type="text/x-template" id="my-news">
+    <div>
+       my - news
+    </div>
+</script>
+<script type="text/javascript">
+
+    // 使用 is 可替换 html 元素为组件
+
+    var myNews = {
+        template: "#my-news"
+    };
+
+    var myHeader = {
+        template: '#my-header'
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews,myHeader
+        }
+    });
+
+</script>
+</body>
+</html>

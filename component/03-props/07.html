@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            width: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <!--sync 关键字，子组件修改数据后，会同步父组件对应的值-->
+    <my-news :lists.sync="myLists"></my-news>
+
+    <hr>
+    {{total_price}}
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script type="text/x-template" id="my-news">
+    <div>
+        <table>
+            <tr v-for="item in lists">
+                <td>{{item.title}}</td>
+                <!--修饰符 number，确保输入的数字是 number-->
+                <td><input type="text" v-model.number="item.price" /></td>
+            </tr>
+        </table>
+    </div>
+</script>
+<script type="text/javascript">
+
+    // props $emit 实现父组件向子组件传递数据
+
+    var myNews = {
+        template: "#my-news",
+        props: {
+            lists: {
+                type: Array,
+                default(){
+                    return [];
+                }
+            }
+        }
+    };
+
+    var vue = new Vue({
+        el: '#app',
+        components: {
+            myNews
+        },
+        computed: {
+            total_price(){
+                var sum = 0;
+                this.myLists.forEach(function (item, index) {
+                    sum = sum + item.price;
+                })
+                return sum;
+            }
+        },
+        data: {
+            myLists: [
+                {
+                    title: '货物1',
+                    price: 12
+                },
+                {
+                    title: '货物2',
+                    price: 13
+                }
+            ],
+        }
+    });
+
+</script>
+</body>
+</html>
